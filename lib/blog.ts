@@ -1,9 +1,9 @@
-import { BlogFrontmatter, BlogPost, BlogPostPreview } from '@/types/blog';
-import fs from 'fs';
-import matter from 'gray-matter';
-import path from 'path';
+import { BlogFrontmatter, BlogPost, BlogPostPreview } from "@/types/blog";
+import fs from "fs";
+import matter from "gray-matter";
+import path from "path";
 
-const blogDirectory = path.join(process.cwd(), 'data/blog');
+const blogDirectory = path.join(process.cwd(), "data/blog");
 
 /**
  * Get all blog post files from the blog directory
@@ -15,8 +15,8 @@ export function getBlogPostSlugs(): string[] {
 
   const files = fs.readdirSync(blogDirectory);
   return files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => file.replace(/\.mdx$/, ''));
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""));
 }
 
 /**
@@ -30,7 +30,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
       return null;
     }
 
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
     // Validate frontmatter
@@ -93,8 +93,8 @@ export function getBlogPostsByTag(tag: string): BlogPostPreview[] {
   const publishedPosts = getPublishedBlogPosts();
   return publishedPosts.filter((post) =>
     post.frontmatter.tags.some(
-      (postTag) => postTag.toLowerCase() === tag.toLowerCase(),
-    ),
+      (postTag) => postTag.toLowerCase() === tag.toLowerCase()
+    )
   );
 }
 
@@ -119,7 +119,7 @@ export function getAllTags(): string[] {
  */
 export async function getRelatedPosts(
   currentSlug: string,
-  maxPosts = 3,
+  maxPosts = 3
 ): Promise<BlogPostPreview[]> {
   const currentPost = await getBlogPostBySlug(currentSlug);
   if (!currentPost || !currentPost.frontmatter.isPublished) {
@@ -128,7 +128,7 @@ export async function getRelatedPosts(
 
   const allPosts = getPublishedBlogPosts();
   const currentTags = currentPost.frontmatter.tags.map((tag) =>
-    tag.toLowerCase(),
+    tag.toLowerCase()
   );
 
   // Calculate relevance score based on shared tags
@@ -136,7 +136,7 @@ export async function getRelatedPosts(
     .filter((post) => post.slug !== currentSlug)
     .map((post) => {
       const sharedTags = post.frontmatter.tags.filter((tag) =>
-        currentTags.includes(tag.toLowerCase()),
+        currentTags.includes(tag.toLowerCase())
       );
       return {
         post,
@@ -147,4 +147,34 @@ export async function getRelatedPosts(
     .sort((a, b) => b.score - a.score);
 
   return postsWithScore.slice(0, maxPosts).map((item) => item.post);
+}
+
+export type BlogSearchIndexItem = {
+  slug: string;
+  title: string;
+  content: string;
+};
+
+/**
+ * Get all published posts with full content for search indexing
+ */
+export function getSearchableBlogData(): BlogSearchIndexItem[] {
+  const slugs = getBlogPostSlugs();
+
+  const posts = slugs
+    .map((slug) => {
+      const post = getBlogPostBySlug(slug);
+      if (!post || !post.frontmatter.isPublished) {
+        return null;
+      }
+
+      return {
+        slug: post.slug,
+        title: post.frontmatter.title,
+        content: post.content,
+      };
+    })
+    .filter((post): post is BlogSearchIndexItem => post !== null);
+
+  return posts;
 }

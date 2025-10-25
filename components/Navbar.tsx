@@ -16,7 +16,6 @@ export default function Navbar() {
   return (
     <Container className="sticky top-0 z-30 rounded-md py-4 backdrop-blur-sm">
       <div className="flex items-center justify-between px-6">
-        {/* Logo / Title */}
         <Link href="/normal" className="shrink-0">
           <h1 className="text-2xl font-semibold leading-10 tracking-tight">
             {CONFIG.name.slice(0, 2).toUpperCase()}

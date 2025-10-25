@@ -3,20 +3,28 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { CommandMenu } from "@/components/command-menu";
 import { useLenis } from "lenis/react";
 
+type BlogSearchItem = {
+  title: string;
+  slug: string;
+  content: string;
+};
+// -------------
+
 type SearchContextType = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  blogPosts: BlogSearchItem[];
 };
 
 const SearchContext = createContext<SearchContextType | null>(null);
 
 type SearchProviderProps = {
   children: React.ReactNode;
+  blogPosts: BlogSearchItem[];
 };
 
-export function SearchProvider({ children }: SearchProviderProps) {
+export function SearchProvider({ children, blogPosts }: SearchProviderProps) {
   const [open, setOpen] = useState(false);
-
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -28,23 +36,24 @@ export function SearchProvider({ children }: SearchProviderProps) {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const lenis = useLenis(); 
+  const lenis = useLenis();
 
   useEffect(() => {
     if (lenis) {
       if (open) {
-        lenis.stop(); 
+        lenis.stop();
       } else {
-        lenis.start(); 
+        lenis.start();
       }
     }
-  }, [lenis, open]); 
+  }, [lenis, open]);
 
   return (
-    <SearchContext value={{ open, setOpen }}>
+    <SearchContext value={{ open, setOpen, blogPosts }}>
       {children}
-      <CommandMenu />
+      <CommandMenu blogPosts={blogPosts} />
     </SearchContext>
+    // ---------------------------------------------------------------
   );
 }
 

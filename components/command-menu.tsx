@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { ArrowRight, ChevronRight, Laptop, Moon, Sun } from "lucide-react";
+import { ArrowRight, ChevronRight, Moon, Sun } from "lucide-react";
 import { useSearch } from "@/components/search-provider";
 import {
   CommandDialog,
@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/command";
 import { Kbd } from "./ui/kbd";
 import { ScrollArea } from "./ui/scroll-area";
-import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useThemeToggle } from "./ThemeSwitch";
 
 type SearchSubItem = {
   title: string;
@@ -27,77 +27,85 @@ type SearchNavItem =
   | {
       title: string;
       url: string;
-      shortcut: string[];
-      items?: never; // Explicitly state it cannot have sub-items
+      shortcut?: string[];
+      items?: never;
     }
   | {
       title: string;
       items: SearchSubItem[];
-      url?: never; // Explicitly state it cannot have a direct url
+      url?: never;
       shortcut?: never;
     };
 
-// This is the top-level group (e.g., "General")
 type SearchGroup = {
   title: string;
   items: SearchNavItem[];
 };
 
-// Apply the new type to your searchData
+type BlogSearchItem = {
+  title: string;
+  slug: string;
+  content: string;
+};
+
 const searchData: SearchGroup[] = [
   {
     title: "General",
     items: [
       {
-        title: "Dashboard",
-        url: "/",
-        shortcut: ["G", "D"],
-      },
-      {
-        title: "Tasks",
-        url: "/tasks",
-        shortcut: ["G", "T"],
-      },
-      {
-        title: "Apps",
-        url: "/apps",
-        shortcut: ["G", "A"],
-      },
-      {
-        title: "Users",
-        url: "/users",
-        shortcut: ["G", "U"],
-      },
-    ],
-  },
-  {
-    title: "Application Settings",
-    items: [
-      {
-        title: "Application",
-        items: [
-          {
-            title: "Banner",
-            url: "/apps/banners",
-            shortcut: ["S", "B"],
-          },
-          {
-            title: "Blogs",
-            url: "/apps/blogs",
-            shortcut: ["S", "L"],
-          },
-        ],
+        title: "Home",
+        url: "/normal",
+        shortcut: ["n", "n"],
       },
     ],
   },
 ];
 
-export function CommandMenu() {
+/**
+ * Finds the first sentence in content that includes the query.
+ * @param content The full blog post content
+ * @param query The user's search query
+ * @returns The matching sentence, or null
+ */
+function findMatchingSentence(content: string, query: string): string | null {
+  if (!query.trim()) {
+    return null;
+  }
+
+  const plainText = content
+    .replace(/\[([^\]]+)\]\([^\)]+\)/g, "$1")
+    .replace(/[`*#_>~]/g, "") // Remove markdown chars
+    .replace(/\s+/g, " "); // Normalize whitespace
+
+  const queryLower = query.toLowerCase();
+
+  // Split content into sentences
+  const sentences = plainText.split(
+    /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s/
+  );
+
+  for (const sentence of sentences) {
+    if (sentence.toLowerCase().includes(queryLower)) {
+      return sentence.trim();
+    }
+  }
+
+  return null;
+}
+
+export function CommandMenu({
+  blogPosts = [],
+}: {
+  blogPosts: BlogSearchItem[];
+}) {
   const router = useRouter();
-  const { setTheme } = useTheme();
+  const { toggleTheme } = useThemeToggle();
   const { open, setOpen } = useSearch();
   const keySequence = React.useRef<string[]>([]);
   const sequenceTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
+  const [search, setSearch] = React.useState("");
+
   const runCommand = React.useCallback(
     (command: () => unknown) => {
       setOpen(false);
@@ -107,26 +115,17 @@ export function CommandMenu() {
   );
 
   const sidebarData = searchData;
-  // Flatten all commands with shortcuts for easy lookup
+
   const allCommands = React.useMemo(() => {
     const commands: { shortcut: string[]; action: () => void }[] = [];
-
-    // With our new types, 'group' is SearchGroup and 'item' is SearchNavItem
     sidebarData.forEach((group) => {
       group.items.forEach((item) => {
-        // This 'if' block now correctly narrows 'item' to the first
-        // type in the SearchNavItem union
         if (item.url && item.shortcut) {
           commands.push({
             shortcut: item.shortcut,
             action: () => runCommand(() => router.push(item.url as string)),
           });
-        }
-        // This 'else if' block correctly narrows 'item' to the second
-        // type in the union. TS now knows 'item.items' exists.
-        else if (item.items) {
-          // TS also knows 'item.items' is SearchSubItem[], so 'subItem'
-          // is correctly typed as SearchSubItem, fixing the 'any' error.
+        } else if (item.items) {
           item.items.forEach((subItem) => {
             if (subItem.shortcut && subItem.url) {
               commands.push({
@@ -138,12 +137,13 @@ export function CommandMenu() {
         }
       });
     });
+    commands.push({
+      shortcut: ["B", "B"],
+      action: () => runCommand(() => router.push("/blog")),
+    });
     return commands;
-    // sidebarData is a constant, but we'll leave it in the
-    // dependency array for correctness if it ever becomes dynamic.
   }, [runCommand, router, sidebarData]);
 
-  // Global key listener for shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
@@ -153,18 +153,14 @@ export function CommandMenu() {
       ) {
         return;
       }
-
       if (sequenceTimeout.current) {
         clearTimeout(sequenceTimeout.current);
       }
-
       keySequence.current.push(e.key.toUpperCase());
-
       const matchedCommand = allCommands.find(
         (cmd) =>
           JSON.stringify(cmd.shortcut) === JSON.stringify(keySequence.current)
       );
-
       if (matchedCommand) {
         e.preventDefault();
         matchedCommand.action();
@@ -175,7 +171,6 @@ export function CommandMenu() {
         }, 800);
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -196,6 +191,33 @@ export function CommandMenu() {
     );
   };
 
+  const blogCommandItems = blogPosts.map((post) => {
+    const matchingSentence = findMatchingSentence(post.content, search);
+
+    return (
+      <CommandItem
+        key={`/blog/${post.slug}`}
+        value={`${post.title} ${post.content}`}
+        onSelect={() => {
+          runCommand(() => router.push(`/blog/${post.slug}`));
+        }}
+      >
+        <div className="flex size-4 shrink-0 items-center justify-center">
+          <ArrowRight className="text-muted-foreground/80 size-2" />
+        </div>
+
+        <div className="ms-2 flex flex-col overflow-hidden">
+          <span className="me-2 truncate font-medium">{post.title}</span>
+          {matchingSentence && (
+            <span className="truncate text-xs text-muted-foreground">
+              ...{matchingSentence}...
+            </span>
+          )}
+        </div>
+      </CommandItem>
+    );
+  });
+
   return (
     <CommandDialog modal open={open} onOpenChange={setOpen}>
       <div
@@ -204,11 +226,16 @@ export function CommandMenu() {
         })}
         onWheel={(e) => e.stopPropagation()}
       >
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput
+          placeholder="Type a command or search..."
+          onValueChange={setSearch}
+        />
+
         <CommandList>
           <ScrollArea type="hover" className="h-72 pe-1">
             <CommandEmpty>No results found.</CommandEmpty>
 
+            {/* Static Sidebar Data  */}
             {sidebarData.map((group) => (
               <CommandGroup key={group.title} heading={group.title}>
                 {group.items.map((navItem) => {
@@ -250,20 +277,22 @@ export function CommandMenu() {
                 })}
               </CommandGroup>
             ))}
+
+            {blogCommandItems.length > 0 && (
+              <>
+                <CommandSeparator />
+                <CommandGroup heading="Blogs">{blogCommandItems}</CommandGroup>
+              </>
+            )}
+
             <CommandSeparator />
             <CommandGroup heading="Theme">
-              <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
+              <CommandItem onSelect={() => runCommand(() => toggleTheme())}>
                 <Sun /> <span>Light</span>
               </CommandItem>
-              <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
+              <CommandItem onSelect={() => runCommand(() => toggleTheme())}>
                 <Moon className="scale-90" />
                 <span>Dark</span>
-              </CommandItem>
-              <CommandItem
-                onSelect={() => runCommand(() => setTheme("system"))}
-              >
-                <Laptop />
-                <span>System</span>
               </CommandItem>
             </CommandGroup>
           </ScrollArea>
