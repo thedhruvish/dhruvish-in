@@ -4,6 +4,7 @@ import ReactLenis from "lenis/react";
 import { ViewTransitions } from "next-view-transitions";
 
 import "../globals.css";
+import { SearchProvider } from "@/components/search-provider";
 
 export default function RootLayout({
   children,
@@ -18,10 +19,12 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <ReactLenis root>
-          <Navbar />
-          {children}
-        </ReactLenis>
+        <SearchProvider>
+          <ReactLenis root>
+            <Navbar />
+            {children}
+          </ReactLenis>
+        </SearchProvider>
       </ThemeProvider>
     </ViewTransitions>
   );
