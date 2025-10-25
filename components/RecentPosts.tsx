@@ -2,19 +2,10 @@ import { CalendarDays, ArrowRight } from "lucide-react";
 
 import { Link } from "next-view-transitions";
 import { MotionLi } from "./ClientMotion";
+import { getPublishedBlogPosts } from "@/lib/blog";
 
-export type Post = {
-  slug: string;
-  title: string;
-  publishDate: string;
-  description: string;
-};
-
-type RecentPostsProps = {
-  posts: Post[];
-};
-
-export const RecentPosts = ({ posts }: RecentPostsProps) => {
+export const RecentPosts = () => {
+  const posts = getPublishedBlogPosts(3);
   return (
     <section className="mt-20">
       {/* Section Header */}
@@ -44,26 +35,33 @@ export const RecentPosts = ({ posts }: RecentPostsProps) => {
               {/* Title */}
               <Link href={`/blog/${post.slug}`} className="block">
                 <h3 className="text-xl font-semibold transition-colors group-hover:text-foreground md:text-2xl">
-                  {post.title}
+                  {post.frontmatter.title}
                 </h3>
               </Link>
 
               {/* Metadata */}
               <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
                 <CalendarDays className="h-4 w-4" aria-hidden="true" />
-                <time dateTime={post.publishDate}>{post.publishDate}</time>
+                <time dateTime={post.frontmatter.date}>
+                  {post.frontmatter.date}
+                </time>
               </div>
 
               {/* Description */}
               <p className="mt-4 text-base text-muted-foreground line-clamp-2">
-                {post.description}
+                {post.frontmatter.description}
               </p>
 
               {/* Read More */}
-              <div className="mt-5 flex items-center gap-1 text-sm font-medium text-muted-foreground transition-all group-hover:text-foreground">
-                Read more
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </div>
+              <Link
+                href="/blog"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <div className="mt-5 flex items-center gap-1 text-sm font-medium text-muted-foreground transition-all group-hover:text-foreground">
+                  Read more
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
             </article>
           </MotionLi>
         ))}

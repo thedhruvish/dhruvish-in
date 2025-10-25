@@ -81,9 +81,24 @@ export function getAllBlogPosts(): BlogPostPreview[] {
 /**
  * Get all published blog posts
  */
-export function getPublishedBlogPosts(): BlogPostPreview[] {
+export function getPublishedBlogPosts(limit?: number): BlogPostPreview[] {
   const allPosts = getAllBlogPosts();
-  return allPosts.filter((post) => post.frontmatter.isPublished);
+
+  const publishedPosts = allPosts
+    .filter((post) => post.frontmatter.isPublished)
+    // sort by latest date first
+    .sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+    );
+
+  // if limit is provided, slice the array
+  if (typeof limit === "number") {
+    return publishedPosts.slice(0, limit);
+  }
+
+  return publishedPosts;
 }
 
 /**
@@ -93,8 +108,8 @@ export function getBlogPostsByTag(tag: string): BlogPostPreview[] {
   const publishedPosts = getPublishedBlogPosts();
   return publishedPosts.filter((post) =>
     post.frontmatter.tags.some(
-      (postTag) => postTag.toLowerCase() === tag.toLowerCase(),
-    ),
+      (postTag) => postTag.toLowerCase() === tag.toLowerCase()
+    )
   );
 }
 
@@ -119,7 +134,7 @@ export function getAllTags(): string[] {
  */
 export async function getRelatedPosts(
   currentSlug: string,
-  maxPosts = 3,
+  maxPosts = 3
 ): Promise<BlogPostPreview[]> {
   const currentPost = await getBlogPostBySlug(currentSlug);
   if (!currentPost || !currentPost.frontmatter.isPublished) {
@@ -128,7 +143,7 @@ export async function getRelatedPosts(
 
   const allPosts = getPublishedBlogPosts();
   const currentTags = currentPost.frontmatter.tags.map((tag) =>
-    tag.toLowerCase(),
+    tag.toLowerCase()
   );
 
   // Calculate relevance score based on shared tags
@@ -136,7 +151,7 @@ export async function getRelatedPosts(
     .filter((post) => post.slug !== currentSlug)
     .map((post) => {
       const sharedTags = post.frontmatter.tags.filter((tag) =>
-        currentTags.includes(tag.toLowerCase()),
+        currentTags.includes(tag.toLowerCase())
       );
       return {
         post,

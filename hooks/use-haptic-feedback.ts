@@ -36,10 +36,11 @@ export const useHapticFeedback = () => {
       }
 
       // For iOS devices with haptic feedback support
-      // @ts-expect-error - This is for iOS Safari haptic feedback
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const deviceMotionEvent = window.DeviceMotionEvent as any;
       if (
-        window.DeviceMotionEvent &&
-        typeof window.DeviceMotionEvent.requestPermission === "function"
+        deviceMotionEvent &&
+        typeof deviceMotionEvent.requestPermission === "function"
       ) {
         // iOS haptic feedback through AudioContext (workaround)
         const AudioContextClass =
@@ -57,11 +58,11 @@ export const useHapticFeedback = () => {
         gainNode.gain.setValueAtTime(0, audioContext.currentTime);
         gainNode.gain.linearRampToValueAtTime(
           0.01,
-          audioContext.currentTime + 0.01,
+          audioContext.currentTime + 0.01
         );
         gainNode.gain.linearRampToValueAtTime(
           0,
-          audioContext.currentTime + 0.02,
+          audioContext.currentTime + 0.02
         );
 
         oscillator.start(audioContext.currentTime);
@@ -76,7 +77,7 @@ export const useHapticFeedback = () => {
   const isMobile = useCallback(() => {
     if (typeof window === "undefined") return false;
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent,
+      navigator.userAgent
     );
   }, []);
 

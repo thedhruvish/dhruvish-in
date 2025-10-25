@@ -30,14 +30,14 @@ export function BlogCard({ post }: BlogCardProps) {
     <Card className="group h-full w-full overflow-hidden transition-all p-0 border-gray-100 dark:border-gray-800 shadow-none">
       <CardHeader className="p-0">
         <div className="relative aspect-video overflow-hidden">
-          <Link href={`/normal/blog/${slug}`}>
+          <Link href={`/blog/${slug}`}>
             <Image src={image} alt={title} fill className="object-cover" />
           </Link>
         </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          <Link href={`/normal/blog/${slug}`}>
+          <Link href={`/blog/${slug}`}>
             <h3 className="line-clamp-2 text-xl font-semibold leading-tight group-hover:text-primary">
               {title}
             </h3>
@@ -67,7 +67,7 @@ export function BlogCard({ post }: BlogCardProps) {
               <Calender className="size-4" /> {formattedDate}
             </time>
             <Link
-              href={`/normal/blog/${slug}`}
+              href={`/blog/${slug}`}
               className="flex items-center justify-end gap-2 hover:underline underline-offset-4 text-secondary"
             >
               Read More <ArrowRight className="size-4" />

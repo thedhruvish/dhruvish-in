@@ -90,14 +90,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Back Button */}
           <div className="flex items-center justify-between">
             <Button variant="ghost" asChild className="group">
-              <Link href="/normal/blog" className="flex items-center space-x-2">
+              <Link href="/blog" className="flex items-center space-x-2">
                 <ArrowLeft className="size-4" />
                 <span>Back to Blog</span>
               </Link>
             </Button>
 
             <OpenIn
-              query={`I’ve read this blog post: ${process.env.NEXT_PUBLIC_BASE_URL}/normal/blogs/${post.slug}. can you  help me explain the concepts clearly, give practical examples, and answer my questions about it.`}
+              query={`I’ve read this blog post: ${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${post.slug}. can you  help me explain the concepts clearly, give practical examples, and answer my questions about it.`}
             >
               <OpenInTrigger />
               <OpenInContent>

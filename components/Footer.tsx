@@ -28,7 +28,7 @@ export const Footer = () => {
           }}
           className="select-none text-center font-extrabold text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] text-foreground"
         >
-          {CONFIG.NAME}
+          {CONFIG.name}
         </MotionH1>
       </div>
 

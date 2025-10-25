@@ -49,9 +49,9 @@ export function BlogPageClient({
     }
 
     if (selectedTag === tag) {
-      router.replace("/normal/blog");
+      router.replace("/blog");
     } else {
-      router.replace(`/normal/blog?tag=${encodeURIComponent(tag)}`);
+      router.replace(`/blog?tag=${encodeURIComponent(tag)}`);
     }
   };
 

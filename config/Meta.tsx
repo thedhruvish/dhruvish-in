@@ -76,7 +76,7 @@ export const pageMetadata: Record<string, PageMeta> = {
   },
 
   // Blog page
-  "/normal/blog": {
+  "/blog": {
     title: "Blog - Thoughts & Tutorials",
     description:
       "Read my thoughts, tutorials, and insights on engineering, programming, and web development.",

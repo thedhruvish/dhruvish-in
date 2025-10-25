@@ -10,13 +10,13 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Navbar() {
+export default function Navbar({ isSearch = true }: { isSearch?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Container className="sticky top-0 z-30 rounded-md py-4 backdrop-blur-sm">
       <div className="flex items-center justify-between px-6">
-        <Link href="/normal" className="shrink-0">
+        <Link href="/" className="shrink-0">
           <h1 className="text-2xl font-semibold leading-10 tracking-tight">
             {CONFIG.name.slice(0, 2).toUpperCase()}
           </h1>
@@ -37,7 +37,7 @@ export default function Navbar() {
 
         {/* Right section: Search + Theme Toggle + Mobile Menu */}
         <div className="flex items-center gap-4">
-          <SearchBar className="hidden md:block" />
+          {isSearch && <SearchBar className="hidden md:block" />}
           <ThemeToggleButton variant="circle" start="top-right" blur />
 
           {/* Mobile menu button */}

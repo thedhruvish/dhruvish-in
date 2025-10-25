@@ -12,16 +12,7 @@ export default function Home() {
     <>
       <Container>
         <HeroSection />
-        <RecentPosts
-          posts={[
-            {
-              title: "Hello World",
-              slug: "hello-world",
-              description: "Hello World",
-              publishDate: "2023-01-01",
-            },
-          ]}
-        />
+        <RecentPosts />
         <Projects
           projects={[
             {

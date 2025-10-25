@@ -19,7 +19,7 @@ export const CONFIG = {
   navItems: [
     {
       label: "Blogs",
-      href: "/normal/blog",
+      href: "/blog",
     },
     {
       label: "Projects",
