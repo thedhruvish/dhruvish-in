@@ -10,13 +10,13 @@ export interface PageMeta {
 
 // Base site configuration
 export const siteConfig = {
-  name: CONFIG.NAME,
+  name: CONFIG.name,
   title: CONFIG.title,
   description: CONFIG.description,
   url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
   ogImage: "/meta/opengraph-image.png",
   author: {
-    name: CONFIG.NAME,
+    name: CONFIG.name,
     twitter: CONFIG.SOCIAL_MEDIA.x,
     github: CONFIG.SOCIAL_MEDIA.github,
     linkedin: CONFIG.SOCIAL_MEDIA.linkedin,
@@ -29,14 +29,14 @@ export const siteConfig = {
     "nextjs",
     "typescript",
     "web development",
-    CONFIG.NAME.toLowerCase(),
+    CONFIG.name.toLowerCase(),
   ],
 };
 
 export const pageMetadata: Record<string, PageMeta> = {
   // Home page
   "/": {
-    title: `${CONFIG.NAME} `,
+    title: `${CONFIG.name} `,
     description: `${CONFIG.description} Explore my projects, experience, and technical expertise.`,
     keywords: [
       "portfolio",
@@ -90,8 +90,6 @@ export const pageMetadata: Record<string, PageMeta> = {
     ogImage: "/meta/blogs.png",
     twitterCard: "summary_large_image",
   },
-
-
 };
 
 // Helper function to get metadata for a specific page
