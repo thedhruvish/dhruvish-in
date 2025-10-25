@@ -1,6 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { CommandMenu } from "@/components/command-menu";
+import { useLenis } from "lenis/react";
 
 type SearchContextType = {
   open: boolean;
@@ -26,6 +27,18 @@ export function SearchProvider({ children }: SearchProviderProps) {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  const lenis = useLenis(); 
+
+  useEffect(() => {
+    if (lenis) {
+      if (open) {
+        lenis.stop(); 
+      } else {
+        lenis.start(); 
+      }
+    }
+  }, [lenis, open]); 
 
   return (
     <SearchContext value={{ open, setOpen }}>

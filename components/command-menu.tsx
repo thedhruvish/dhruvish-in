@@ -15,6 +15,7 @@ import { Kbd } from "./ui/kbd";
 import { ScrollArea } from "./ui/scroll-area";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type SearchSubItem = {
   title: string;
@@ -197,67 +198,77 @@ export function CommandMenu() {
 
   return (
     <CommandDialog modal open={open} onOpenChange={setOpen}>
-      <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
-        <ScrollArea type="hover" className="h-72 pe-1">
-          <CommandEmpty>No results found.</CommandEmpty>
+      <div
+        className={cn("h-full w-full", {
+          "animate-fade-in-blur": open,
+        })}
+        onWheel={(e) => e.stopPropagation()}
+      >
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <ScrollArea type="hover" className="h-72 pe-1">
+            <CommandEmpty>No results found.</CommandEmpty>
 
-          {sidebarData.map((group) => (
-            <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem) => {
-                if (navItem.url)
-                  return (
+            {sidebarData.map((group) => (
+              <CommandGroup key={group.title} heading={group.title}>
+                {group.items.map((navItem) => {
+                  if (navItem.url)
+                    return (
+                      <CommandItem
+                        key={navItem.url}
+                        value={navItem.title}
+                        onSelect={() => {
+                          runCommand(() => router.push(navItem.url as string));
+                        }}
+                      >
+                        <div className="flex size-4 items-center justify-center">
+                          <ArrowRight className="text-muted-foreground/80 size-2" />
+                        </div>
+                        <span className="me-2">{navItem.title}</span>
+                        {renderShortcut(navItem.shortcut)}
+                      </CommandItem>
+                    );
+                  return navItem.items?.map((subItem) => (
                     <CommandItem
-                      key={navItem.url}
-                      value={navItem.title}
+                      key={subItem.url}
+                      value={`${navItem.title}-${subItem.title}`}
                       onSelect={() => {
-                        runCommand(() => router.push(navItem.url as string));
+                        runCommand(() => router.push(subItem.url));
                       }}
                     >
                       <div className="flex size-4 items-center justify-center">
                         <ArrowRight className="text-muted-foreground/80 size-2" />
                       </div>
-                      <span className="me-2">{navItem.title}</span>
-                      {renderShortcut(navItem.shortcut)}
+                      <span>
+                        {navItem.title}{" "}
+                        <ChevronRight className="inline size-3" />{" "}
+                        {subItem.title}
+                      </span>
+                      {renderShortcut(subItem.shortcut)}
                     </CommandItem>
-                  );
-                return navItem.items?.map((subItem) => (
-                  <CommandItem
-                    key={subItem.url}
-                    value={`${navItem.title}-${subItem.title}`}
-                    onSelect={() => {
-                      runCommand(() => router.push(subItem.url));
-                    }}
-                  >
-                    <div className="flex size-4 items-center justify-center">
-                      <ArrowRight className="text-muted-foreground/80 size-2" />
-                    </div>
-                    <span>
-                      {navItem.title} <ChevronRight className="inline size-3" />{" "}
-                      {subItem.title}
-                    </span>
-                    {renderShortcut(subItem.shortcut)}
-                  </CommandItem>
-                ));
-              })}
+                  ));
+                })}
+              </CommandGroup>
+            ))}
+            <CommandSeparator />
+            <CommandGroup heading="Theme">
+              <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
+                <Sun /> <span>Light</span>
+              </CommandItem>
+              <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
+                <Moon className="scale-90" />
+                <span>Dark</span>
+              </CommandItem>
+              <CommandItem
+                onSelect={() => runCommand(() => setTheme("system"))}
+              >
+                <Laptop />
+                <span>System</span>
+              </CommandItem>
             </CommandGroup>
-          ))}
-          <CommandSeparator />
-          <CommandGroup heading="Theme">
-            <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
-              <Sun /> <span>Light</span>
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
-              <Moon className="scale-90" />
-              <span>Dark</span>
-            </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
-              <Laptop />
-              <span>System</span>
-            </CommandItem>
-          </CommandGroup>
-        </ScrollArea>
-      </CommandList>
+          </ScrollArea>
+        </CommandList>
+      </div>
     </CommandDialog>
   );
 }
