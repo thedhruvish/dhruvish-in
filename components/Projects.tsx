@@ -1,4 +1,3 @@
-import React from "react";
 import { ExternalLink } from "lucide-react";
 import {
   Tooltip,
@@ -8,25 +7,10 @@ import {
 } from "@/components/ui/tooltip";
 import Github from "./svgs/Github";
 import { MotionLi } from "./ClientMotion";
+import { projectList } from "@/config/projects";
 
-export type Tech = {
-  name: string;
-  icon: React.ReactNode;
-};
-
-export type Project = {
-  title: string;
-  description: string;
-  github?: string;
-  link?: string;
-  tech?: Tech[];
-};
-
-type ProjectsProps = {
-  projects: Project[];
-};
-
-export const Projects = ({ projects }: ProjectsProps) => {
+export const Projects = () => {
+  const projects = projectList;
   return (
     <section className="mt-20">
       {/* Section Header */}
@@ -94,15 +78,15 @@ export const Projects = ({ projects }: ProjectsProps) => {
               {project.tech && project.tech.length > 0 && (
                 <TooltipProvider>
                   <div className="mt-5 flex flex-wrap items-center gap-3">
-                    {project.tech.map((technology, index) => (
+                    {project.tech.map(({ name, icon: Icon }, index) => (
                       <Tooltip key={index}>
                         <TooltipTrigger asChild>
                           <div className="size-6 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                            {technology.icon}
+                            <Icon />
                           </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="text-sm">{technology.name}</p>
+                          <p className="text-sm">{name}</p>
                         </TooltipContent>
                       </Tooltip>
                     ))}

@@ -65,6 +65,7 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
         <MDXRemote
           source={content}
           components={BlogComponents}
+
           options={{
             mdxOptions: {
               rehypePlugins: [
