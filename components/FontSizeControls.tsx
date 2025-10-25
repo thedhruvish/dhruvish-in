@@ -1,67 +1,68 @@
-'use client';
+"use client";
 
-import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
-import { Minus, Plus, Settings } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useHapticFeedback } from "@/hooks/use-haptic-feedback";
+import { Minus, Plus, Settings } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { Button } from './ui/button';
+import { Button } from "./ui/button";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from './ui/drawer';
+} from "./ui/drawer";
 
 export default function FontSizeControls() {
   const [fontSize, setFontSize] = useState<number>(16);
   const { triggerHaptic, isMobile } = useHapticFeedback();
 
+  const applyFontSize = (size: number) => {
+    if (typeof window !== "undefined") {
+      document.documentElement.style.setProperty(
+        "--blog-font-size",
+        `${size}px`,
+      );
+    }
+  };
   // Load font size from localStorage on mount
   useEffect(() => {
-    const savedFontSize = localStorage.getItem('blog-font-size');
+    const savedFontSize = localStorage.getItem("blog-font-size");
     if (savedFontSize) {
       const size = parseInt(savedFontSize, 10);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFontSize(size);
       applyFontSize(size);
     }
   }, []);
 
   // Apply font size to the document
-  const applyFontSize = (size: number) => {
-    if (typeof window !== 'undefined') {
-      document.documentElement.style.setProperty(
-        '--blog-font-size',
-        `${size}px`,
-      );
-    }
-  };
 
   // Save to localStorage and apply
   const updateFontSize = (newSize: number) => {
     const clampedSize = Math.max(12, Math.min(24, newSize));
     setFontSize(clampedSize);
     applyFontSize(clampedSize);
-    localStorage.setItem('blog-font-size', clampedSize.toString());
+    localStorage.setItem("blog-font-size", clampedSize.toString());
   };
 
   const handleIncrease = () => {
     if (isMobile()) {
-      triggerHaptic('light');
+      triggerHaptic("light");
     }
     updateFontSize(fontSize + 2);
   };
 
   const handleDecrease = () => {
     if (isMobile()) {
-      triggerHaptic('light');
+      triggerHaptic("light");
     }
     updateFontSize(fontSize - 2);
   };
 
   const handleReset = () => {
     if (isMobile()) {
-      triggerHaptic('medium');
+      triggerHaptic("medium");
     }
     updateFontSize(16);
   };

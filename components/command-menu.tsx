@@ -81,7 +81,7 @@ function findMatchingSentence(content: string, query: string): string | null {
 
   // Split content into sentences
   const sentences = plainText.split(
-    /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s/
+    /(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s/,
   );
 
   for (const sentence of sentences) {
@@ -111,7 +111,7 @@ export function CommandMenu({
       setOpen(false);
       command();
     },
-    [setOpen]
+    [setOpen],
   );
 
   const sidebarData = searchData;
@@ -159,7 +159,7 @@ export function CommandMenu({
       keySequence.current.push(e.key.toUpperCase());
       const matchedCommand = allCommands.find(
         (cmd) =>
-          JSON.stringify(cmd.shortcut) === JSON.stringify(keySequence.current)
+          JSON.stringify(cmd.shortcut) === JSON.stringify(keySequence.current),
       );
       if (matchedCommand) {
         e.preventDefault();

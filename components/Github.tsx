@@ -12,7 +12,7 @@ import { githubConfig } from "@/config/Github";
 
 const ActivityCalendar = dynamic(
   () => import("react-activity-calendar").then((mod) => mod.default),
-  { ssr: false }
+  { ssr: false },
 );
 
 type ContributionItem = {
@@ -55,7 +55,7 @@ export default function Github() {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${githubConfig.apiUrl}/${githubConfig.username}.json`
+          `${githubConfig.apiUrl}/${githubConfig.username}.json`,
         );
         const data: { contributions?: unknown[] } = await response.json();
 
@@ -80,7 +80,7 @@ export default function Github() {
                 item !== null &&
                 "date" in item &&
                 "contributionCount" in item &&
-                "contributionLevel" in item
+                "contributionLevel" in item,
             )
             .map((item: GitHubContributionResponse) => ({
               date: String(item.date),
@@ -94,7 +94,7 @@ export default function Github() {
             // Calculate total contributions
             const total = validContributions.reduce(
               (sum, item) => sum + item.count,
-              0
+              0,
             );
             setTotalContributions(total);
 

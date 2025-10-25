@@ -19,11 +19,9 @@ import {
   OpenInChatGPT,
   OpenInClaude,
   OpenInContent,
-  OpenInCursor,
   OpenInScira,
   OpenInT3,
   OpenInTrigger,
-  OpenInv0,
 } from "@/components/ai-elements/open-in-chat";
 
 interface BlogPostPageProps {

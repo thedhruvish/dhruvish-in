@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function MDXIcon({ className }: { className?: string }) {
   return (

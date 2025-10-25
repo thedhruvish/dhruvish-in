@@ -61,7 +61,7 @@ export const HeroSection = () => {
           variants={itemVariants}
           className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-6xl"
         >
-         {CONFIG.name}
+          {CONFIG.name}
         </MotionH1>
 
         {/* Description */}
@@ -69,7 +69,7 @@ export const HeroSection = () => {
           variants={itemVariants}
           className="mb-8 max-w-lg text-lg text-muted-foreground md:text-xl"
         >
-         {CONFIG.description}
+          {CONFIG.description}
         </MotionP>
 
         {/* Buttons */}
