@@ -3,15 +3,18 @@ export interface NavItem {
   href: string;
 }
 export const CONFIG = {
-  NAME: "Dhruvish Lathiya",
-  title:"i am backend dev",
+  name: "Dhruvish ",
+  fullName: "Dhruvish Lathiya",
+  title: "i am backend dev",
   description: "hello i am dhruvish",
+  profilePic: "https://github.com/thedhruvish.png",
   SOCIAL_MEDIA: {
     github: "https://github.com/thedhruvish",
     linkedin: "https://linkedin.com/in/dhruvishlathiya",
     x: "https://x.com/dhruvishlathiya",
     cal: "https://cal.com/dhruvishlathiya/30min?overlayCalendar=true",
     email: "thedhruvish@gmail.com",
+    githubUsername: "thedhruvish",
   },
   navItems: [
     {
