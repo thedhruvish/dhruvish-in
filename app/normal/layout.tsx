@@ -4,7 +4,6 @@ import ReactLenis from "lenis/react";
 import { ViewTransitions } from "next-view-transitions";
 
 import "../globals.css";
-import Taskbar from "@/components/Taskbar";
 
 export default function RootLayout({
   children,
@@ -22,7 +21,6 @@ export default function RootLayout({
         <ReactLenis root>
           <Navbar />
           {children}
-          <Taskbar />
         </ReactLenis>
       </ThemeProvider>
     </ViewTransitions>
