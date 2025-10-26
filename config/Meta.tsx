@@ -50,7 +50,7 @@ export const pageMetadata: Record<string, PageMeta> = {
   },
 
   // Contact page
-  "/normal/contact": {
+  "/contact": {
     title: "Contact - Get in Touch",
     description:
       "Get in touch with me for collaborations, projects, or opportunities. I'd love to hear from you!",
@@ -60,7 +60,7 @@ export const pageMetadata: Record<string, PageMeta> = {
   },
 
   // Projects page
-  "/normal/projects": {
+  "/projects": {
     title: "Projects - My Work & Projects Portfolio",
     description:
       "Discover my projects and work across different technologies and domains. From web apps to mobile solutions.",
