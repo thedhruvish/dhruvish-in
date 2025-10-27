@@ -38,7 +38,7 @@ export function generateRss() {
       <guid>${baseUrl}/blog/${blog.slug}</guid>
       <pubDate>${new Date(blog.frontmatter.date).toUTCString()}</pubDate>
       <description>${escapeXml(blog.frontmatter.description)}</description>
-      <author>dhruvish@example.com</author>
+      <author>Dhruvish Lathiya</author>
       ${
         blog.frontmatter.tags
           ?.map((tag) => `<category>${escapeXml(tag)}</category>`)

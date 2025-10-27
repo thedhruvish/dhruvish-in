@@ -21,5 +21,9 @@ export const CONFIG = {
       label: "Blogs",
       href: "/blog",
     },
+    {
+      label:"Contact ",
+      href:"/contact-us"
+    }
   ] as NavItem[],
 };

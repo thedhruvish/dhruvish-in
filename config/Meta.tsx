@@ -50,12 +50,11 @@ export const pageMetadata: Record<string, PageMeta> = {
   },
 
   // Contact page
-  "/contact": {
+  "/contact-us": {
     title: "Contact - Get in Touch",
     description:
       "Get in touch with me for collaborations, projects, or opportunities. I'd love to hear from you!",
     keywords: ["contact", "hire", "collaboration", "freelance", "developer"],
-    ogImage: "/assets/logo.png",
     twitterCard: "summary",
   },
 
