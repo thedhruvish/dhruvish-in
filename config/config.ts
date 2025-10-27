@@ -21,9 +21,5 @@ export const CONFIG = {
       label: "Blogs",
       href: "/blog",
     },
-    {
-      label: "Projects",
-      href: "/normal/projects",
-    },
   ] as NavItem[],
 };

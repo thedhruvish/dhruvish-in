@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProviders";
 import ReactLenis from "lenis/react";
 import "../globals.css";
+import "./style.css";
 
 export default function RootLayout({
   children,
