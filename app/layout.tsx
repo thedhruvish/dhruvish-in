@@ -1,7 +1,9 @@
 import { generateMetadata } from "@/config/Meta";
-import "./globals.css";
 import { ViewTransitions } from "next-view-transitions";
+
 export const metadata = generateMetadata("/");
+import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProviders";
 
 export default function RootLayout({
   children,
@@ -11,7 +13,16 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <body className={`font-hanken-grotesk antialiased page-fade-in`}>{children}</body>
+        <body className={`font-hanken-grotesk antialiased `}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
       </html>
     </ViewTransitions>
   );

@@ -54,8 +54,13 @@ const searchData: SearchGroup[] = [
     items: [
       {
         title: "Home",
-        url: "/normal",
-        shortcut: ["n", "n"],
+        url: "/",
+        shortcut: ["h", "h"],
+      },
+      {
+        title: "Contact",
+        url: "/contact-us",
+        shortcut: ["c", "u"],
       },
     ],
   },
