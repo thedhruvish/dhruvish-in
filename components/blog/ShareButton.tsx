@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import X from "../svgs/X";
 import LinkedIn from "../svgs/LinkedIn";
 import Whatsapp from "../svgs/Whatsapp";
+import MailIcon from "../svgs/Mail";
 
 interface ShareButtonProps {
   title: string;
@@ -40,14 +41,14 @@ export function ShareButton({ title, slug }: ShareButtonProps) {
     {
       name: "X",
       href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-        url
+        url,
       )}&text=${encodeURIComponent(title)}`,
       icon: <X className="size-5" />,
     },
     {
       name: "LinkedIn",
       href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-        url
+        url,
       )}&title=${encodeURIComponent(title)}`,
       icon: <LinkedIn className="size-5" />,
     },
@@ -55,7 +56,7 @@ export function ShareButton({ title, slug }: ShareButtonProps) {
     {
       name: "Facebook",
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        url
+        url,
       )}`,
       icon: <Facebook className="size-5" />,
     },
@@ -63,6 +64,12 @@ export function ShareButton({ title, slug }: ShareButtonProps) {
       name: "Whatsapp",
       href: `https://api.whatsapp.com/send?text=${encodeURIComponent(url)}`,
       icon: <Whatsapp />,
+    },
+    {
+      name: "Mail",
+      href: "mailto:?subject=See%20this%20post&body=" + encodeURIComponent(url),
+      linkTitle: `Share this post via email`,
+      icon: <MailIcon />,
     },
   ];
 

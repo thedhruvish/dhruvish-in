@@ -3,7 +3,11 @@ import { CalendarDays, ArrowRight } from "lucide-react";
 import { Link } from "next-view-transitions";
 import { MotionLi } from "./ClientMotion";
 import { getPublishedBlogPosts } from "@/lib/blog";
-
+const formatterDE = new Intl.DateTimeFormat("de-DE", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 export const RecentPosts = () => {
   const posts = getPublishedBlogPosts(3);
   return (
@@ -43,7 +47,7 @@ export const RecentPosts = () => {
               <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
                 <CalendarDays className="h-4 w-4" aria-hidden="true" />
                 <time dateTime={post.frontmatter.date}>
-                  {post.frontmatter.date}
+                  {formatterDE.format(new Date(post.frontmatter.date))}
                 </time>
               </div>
 
@@ -54,7 +58,7 @@ export const RecentPosts = () => {
 
               {/* Read More */}
               <Link
-                href="/blog"
+                href={`/blog/${post.slug}`}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               >
                 <div className="mt-5 flex items-center gap-1 text-sm font-medium text-muted-foreground transition-all group-hover:text-foreground">

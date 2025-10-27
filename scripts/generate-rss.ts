@@ -44,7 +44,7 @@ export function generateRss() {
           ?.map((tag) => `<category>${escapeXml(tag)}</category>`)
           .join("\n      ") || ""
       }
-    </item>`
+    </item>`,
       )
       .join("")}
   </channel>

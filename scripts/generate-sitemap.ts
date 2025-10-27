@@ -54,7 +54,7 @@ export function generateSitemap() {
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>`
+  </url>`,
     )
     .join("")}
 </urlset>`;

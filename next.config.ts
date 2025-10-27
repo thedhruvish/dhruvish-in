@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [new URL("https://github.com/thedhruvish.png")],
     unoptimized: true,
   },
-  
 };
 
 export default nextConfig;

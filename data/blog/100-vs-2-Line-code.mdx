@@ -1,0 +1,103 @@
+---
+title: 100 vs 2 Line code
+description: Software developement they are the many people are assuming less line of code are better but it is not truth
+date: 2025-06-25
+tags:
+  [
+    "100 vs 2 line of code",
+    "long code",
+    "cpp",
+    "c++",
+    "data-structure",
+    "data-structure-and-algorithm",
+    "software",
+    "software-enginer",
+    "developer",
+  ]
+image: "/blogs/100-vs-2-Line-code/og.jpg"
+isPublished: true
+---
+
+## Which code are better 100 or 2 line of code
+
+> **quick questions** which code are faster or better 100 line or 2 line ?
+
+- In the software enginer or beginner are assuming the less line of code are the better.
+- I think It dependent on the which you are building or what is you software.
+- I give example in below:
+
+## Example
+
+> I have 12 apples. All of them weigh the same except for one, which is heavier. I want to find out which apple is the heaviest.
+
+### Shorter & Simpler approach
+
+- In this problem statement, I will check all apple one by one and find the heaviest one.
+- this approach are the line in this code are the below:
+
+```cpp
+int apples[] = {1,1,1,1,1,1,2,1,1,1,1,1}
+int max = apples[0];
+for (int i = 0; i < 12; i++) {
+  if  (max < apples[i]) {
+    return i;
+  }
+}
+return 0;
+```
+
+> Here the code is Shorter but the Time Complexity is Big **O(n)**
+
+### Smarter Approach
+
+- In this approach, All 12 apples will be divided into 3 group , each containing 4 apples.
+- after all those group to sum of weight of apples. Store sum in three defferent variable.
+- simple check which one group are heaviest.
+- this is example.
+
+```cpp
+int apples[] = {1,1,1,1,1,1,2,1,1,1,1,1}
+
+// divide in three group
+int group1 = apples[0] + apples[1] + apples[2] + apples[3];
+int group2 = apples[4] + apples[5] + apples[6] + apples[7];
+int group3 = apples[8] + apples[9] + apples[10] + apples[11];
+int max_num = apples[0];
+
+// check which group is heaviest
+
+if (group1 > group2){
+  for(int i = 0; i < 4; i++){
+    if (max_num < apples[i]){
+      return i;
+    }
+  }
+}
+
+else if (group2 > group3){
+  for (int i = 4; i < 8; i++){
+    if (max_num < apples[i]){
+      return i;
+    }
+  }
+}
+
+else {
+  for (int i = 8; i < 12; i++){
+    if (max_num < apples[i]){
+      return i;
+    }
+  }
+}
+
+```
+
+> Now here the complexity is **O(1)** Constant.
+
+## Conclusion
+
+> now you know which code are faster and better. those example are the show the second example are more line of code but this code are faster. in the first example less line but this code are solower.
+
+- Give me suggestion What is next blog which topic. in the any social media you can find me. also tag me.
+
+> **Thanks for reading.**

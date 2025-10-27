@@ -1,0 +1,52 @@
+---
+date: 2025-08-25T17:35:26.000+05:30
+title: what are modules in JS
+tags: [js, javascript, js fundamentals, what is module]
+description: Javascript or Any other Langauage Why modules are the exsting. and how to use modules system in js.
+isPublished: true
+image: "/blogs/What-are-Modules-in-JS/js.png"
+---
+
+## Table of contents
+
+## What ?
+
+- A module it a just file just contain code.(function,class,variable)
+- In You are all the code only one file that handle it very complex that why we use module.
+- In js we have 2 types of module
+  - CommonJS (default module)
+  - ES6 (change in package.json **type:module**)
+
+## How ?
+
+> I have one file that write a function to calculat sum of two numbers.
+
+- this is _sum.js_ file
+
+```js
+const sum = (a, b) => {
+  return a + b;
+};
+
+export { sum }; //   named export import {sum} from './sum.js';    // both name must be same
+
+export default sum; // default export import sumFun from './sum.js';   // you can use any name you wnat
+```
+
+- This is my _main.js_ file
+
+```js
+import { sum } from "./sum.js";
+
+console.log(sum(2, 3));
+```
+
+## Why ?
+
+- This makes you code organzied, reusable and maintainable.
+- This makes your code easy to read and understand.
+- This makes your code easy to test and debug.
+
+## Conclusion
+
+- Modules are you code dividend into small pieces( files). that helps you to reuse code.

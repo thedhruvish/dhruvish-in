@@ -50,7 +50,7 @@ export const Footer = () => {
               Home
             </Link>
             <Link
-              href="/noraml/blog"
+              href="/blog"
               className="transition-colors hover:text-foreground"
             >
               Blog

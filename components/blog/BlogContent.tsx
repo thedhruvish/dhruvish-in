@@ -1,3 +1,6 @@
+// 1. Import remarkGfm
+import remarkGfm from "remark-gfm";
+
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { BlogFrontmatter } from "@/types/blog";
@@ -65,9 +68,10 @@ export function BlogContent({ frontmatter, content }: BlogContentProps) {
         <MDXRemote
           source={content}
           components={BlogComponents}
-
           options={{
             mdxOptions: {
+              // 2. Add the remarkPlugins array here
+              remarkPlugins: [remarkGfm],
               rehypePlugins: [
                 [
                   rehypeHighlight,

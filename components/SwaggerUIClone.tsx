@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/components/SwaggerUIClone.tsx
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState } from "react";
 import { Loader2, ChevronDown } from "lucide-react";
 
 // --- SHADCN/UI Imports ---
@@ -486,7 +487,7 @@ export default function SwaggerUIClone() {
             const taggedPaths = Object.entries(apiData.paths).flatMap(
               ([path, methods]) =>
                 Object.entries(methods)
-                  .filter(([method, data]) =>
+                  .filter(([, data]) =>
                     data.tags.includes(tag.name.toLowerCase())
                   )
                   .map(([method, data]) => ({ path, method, data }))

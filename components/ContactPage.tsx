@@ -39,7 +39,7 @@ const contactFormSchema = z.object({
       message: "Message must not be longer than 500 characters.",
     }),
   // This field will be populated by the Cloudflare widget
-  cfTurnstileToken: z.string().min(1, {
+  cfTurnstileResponse: z.string().min(1, {
     message: "Please complete the security challenge.",
   }),
 });
@@ -55,7 +55,7 @@ export function ContactPage() {
       email: "",
       phoneNumber: "",
       message: "",
-      cfTurnstileToken: "",
+      cfTurnstileResponse: "",
     },
   });
 
@@ -161,7 +161,7 @@ export function ContactPage() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <FormField
                 control={form.control}
-                name="cfTurnstileToken"
+                name="cfTurnstileResponse"
                 render={() => (
                   <FormItem>
                     <FormLabel>Security Verification</FormLabel>
@@ -169,11 +169,11 @@ export function ContactPage() {
                       <Turnstile
                         sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                         onVerify={(token) => {
-                          form.setValue("cfTurnstileToken", token);
-                          form.clearErrors("cfTurnstileToken");
+                          form.setValue("cfTurnstileResponse", token);
+                          form.clearErrors("cfTurnstileResponse");
                         }}
                         onError={() => {
-                          form.setError("cfTurnstileToken", {
+                          form.setError("cfTurnstileResponse", {
                             type: "manual",
                             message: "Challenge failed. Please try again.",
                           });
