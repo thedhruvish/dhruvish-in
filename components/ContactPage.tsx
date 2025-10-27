@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Turnstile from "react-turnstile";
 import { toast } from "sonner";
+import { useContactDataSave } from "@/apiHooks/contactApi";
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, {
@@ -44,10 +45,11 @@ const contactFormSchema = z.object({
   }),
 });
 
+export type ContactForm = z.infer<typeof contactFormSchema>;
 // --- 3. The Contact Form Component ---
 export function ContactPage() {
-  // Initialize the form
-  const form = useForm<z.infer<typeof contactFormSchema>>({
+  const { mutateAsync: contactDataSave } = useContactDataSave();
+  const form = useForm<ContactForm>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
       firstName: "",
@@ -61,11 +63,11 @@ export function ContactPage() {
 
   // Submission handler
   function onSubmit(values: z.infer<typeof contactFormSchema>) {
-    // Your API submission logic goes here.
-    console.log("Form submitted:", values);
-
-    // Show a success message
-    toast("Message Sent!");
+    toast.promise(contactDataSave(values), {
+      loading: "Sending Message...",
+      success: "Message Sent!",
+      error: "Error Sending Message",
+    });
 
     // Reset the form
     form.reset();

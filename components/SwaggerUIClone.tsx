@@ -165,7 +165,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
       return JSON.stringify(
         data.requestBody?.content["application/json"].example,
         null,
-        2
+        2,
       );
     } catch {
       return "";
@@ -207,7 +207,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
 
       // 3. Find a success response (e.g., 200)
       const successCode = Object.keys(data.responses).find((code) =>
-        code.startsWith("2")
+        code.startsWith("2"),
       );
 
       if (successCode) {
@@ -242,7 +242,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
       <div
         className={cn(
           "flex items-center space-x-4 p-3 cursor-pointer",
-          isOpen && "border-b"
+          isOpen && "border-b",
         )}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -256,7 +256,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
         <ChevronDown
           className={cn(
             "ml-auto h-5 w-5 transition-transform",
-            isOpen && "rotate-180"
+            isOpen && "rotate-180",
           )}
         />
       </div>
@@ -335,7 +335,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
                     {JSON.stringify(
                       mockApiSpec.components.schemas.Pet, // Faking schema lookup
                       null,
-                      2
+                      2,
                     )}
                   </pre>
                 </TabsContent>
@@ -405,7 +405,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
                           {JSON.stringify(
                             resp.content["application/json"].example,
                             null,
-                            2
+                            2,
                           )}
                         </pre>
                       ) : (
@@ -415,7 +415,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
                       )}
                     </AccordionContent>
                   </AccordionItem>
-                )
+                ),
               )}
             </Accordion>
           </div>
@@ -430,7 +430,7 @@ function ApiEndpoint({ path, method, data }: ApiEndpointProps) {
  */
 export default function SwaggerUIClone() {
   const [apiUrl, setApiUrl] = useState(
-    "https://api.example.com/v1/openapi.json"
+    "https://api.example.com/v1/openapi.json",
   );
   const apiData = mockApiSpec; // Using mock data
 
@@ -488,9 +488,9 @@ export default function SwaggerUIClone() {
               ([path, methods]) =>
                 Object.entries(methods)
                   .filter(([, data]) =>
-                    data.tags.includes(tag.name.toLowerCase())
+                    data.tags.includes(tag.name.toLowerCase()),
                   )
-                  .map(([method, data]) => ({ path, method, data }))
+                  .map(([method, data]) => ({ path, method, data })),
             );
 
             return (
@@ -540,7 +540,7 @@ export default function SwaggerUIClone() {
                         </pre>
                       </AccordionContent>
                     </AccordionItem>
-                  )
+                  ),
                 )}
               </Accordion>
             </AccordionContent>

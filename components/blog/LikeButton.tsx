@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useGetLikeCount, useIncressLikeCount } from "@/apiHooks/likeBtnApi";
 
 interface LikeButtonProps {
   slug: string;
@@ -10,31 +11,13 @@ interface LikeButtonProps {
 
 export function LikeButton({ slug }: LikeButtonProps) {
   const [likeCount, setLikeCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
+  const { mutate: incressLikeCount } = useIncressLikeCount({ slug });
+  const { data: likeCountData, isLoading } = useGetLikeCount({ slug });
 
   // Refs to hold the debounce timer and pending click count
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
   const pendingClicks = useRef(0);
-
-  useEffect(() => {
-    const fetchLikes = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`/api/likes?slug=${slug}`);
-        if (res.ok) {
-          const data = await res.json();
-          setLikeCount(data.count);
-        }
-      } catch (error) {
-        console.error("Failed to fetch likes:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchLikes();
-  }, [slug]);
 
   useEffect(() => {
     return () => {
@@ -44,7 +27,6 @@ export function LikeButton({ slug }: LikeButtonProps) {
     };
   }, []);
 
-  // Function to send the batched update to the server
   const sendBatchedLikes = async () => {
     const clicksToSend = pendingClicks.current;
     if (clicksToSend === 0) return;
@@ -52,20 +34,9 @@ export function LikeButton({ slug }: LikeButtonProps) {
     pendingClicks.current = 0;
 
     try {
-      await fetch("/api/likes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          slug,
-          action: "increment",
-          count: clicksToSend,
-        }),
-      });
+      incressLikeCount({ count: clicksToSend });
     } catch (error) {
       console.error("Failed to update likes:", error);
-
       setLikeCount((prevCount) => prevCount - clicksToSend);
     }
   };
@@ -100,7 +71,7 @@ export function LikeButton({ slug }: LikeButtonProps) {
         }`}
       />
       <span className="text-sm font-medium">
-        {isLoading ? "..." : likeCount}
+        {isLoading ? "..." : likeCountData.count + likeCount}
       </span>
     </Button>
   );
