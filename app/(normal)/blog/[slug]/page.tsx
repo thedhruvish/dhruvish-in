@@ -23,6 +23,8 @@ import {
   OpenInT3,
   OpenInTrigger,
 } from "@/components/ai-elements/open-in-chat";
+import { ShareButton } from "@/components/blog/ShareButton";
+import { LikeButton } from "@/components/blog/LikeButton";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -96,17 +98,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </Link>
             </Button>
 
-            <OpenIn
-              query={`I’ve read this blog post: ${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${post.slug}. can you  help me explain the concepts clearly, give practical examples, and answer my questions about it.`}
-            >
-              <OpenInTrigger />
-              <OpenInContent>
-                <OpenInChatGPT />
-                <OpenInClaude />
-                <OpenInT3 />
-                <OpenInScira />
-              </OpenInContent>
-            </OpenIn>
+            <div className="flex items-center gap-2">
+              <LikeButton slug={slug} />
+              <ShareButton title={post.frontmatter.title} slug={slug} />
+              <OpenIn
+                query={`I’ve read this blog post: ${process.env.NEXT_PUBLIC_BASE_URL}/blogs/${post.slug}. can you help me explain the concepts clearly, give practical examples, and answer my questions about it.`}
+              >
+                <OpenInTrigger />
+                <OpenInContent>
+                  <OpenInChatGPT />
+                  <OpenInClaude />
+                  <OpenInT3 />
+                  <OpenInScira />
+                </OpenInContent>
+              </OpenIn>
+            </div>
           </div>
 
           {/* Blog Content */}

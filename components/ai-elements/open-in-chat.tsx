@@ -18,7 +18,7 @@ import { type ComponentProps, createContext, useContext } from "react";
 
 const providers = {
   github: {
-    title: "Open in GitHub",
+    title: "GitHub",
     createUrl: (url: string) => url,
     icon: (
       <svg fill="currentColor" role="img" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@ const providers = {
     ),
   },
   scira: {
-    title: "Open in Scira",
+    title: "Scira",
     createUrl: (q: string) =>
       `https://scira.ai/?${new URLSearchParams({
         q,
@@ -93,7 +93,7 @@ const providers = {
     ),
   },
   chatgpt: {
-    title: "Open in ChatGPT",
+    title: "ChatGPT",
     createUrl: (prompt: string) =>
       `https://chatgpt.com/?${new URLSearchParams({
         hints: "search",
@@ -112,7 +112,7 @@ const providers = {
     ),
   },
   claude: {
-    title: "Open in Claude",
+    title: "Claude",
     createUrl: (q: string) =>
       `https://claude.ai/new?${new URLSearchParams({
         q,
@@ -134,7 +134,7 @@ const providers = {
     ),
   },
   t3: {
-    title: "Open in T3 Chat",
+    title: "T3 Chat",
     createUrl: (q: string) =>
       `https://t3.chat/new?${new URLSearchParams({
         q,
@@ -142,7 +142,7 @@ const providers = {
     icon: <MessageCircleIcon />,
   },
   v0: {
-    title: "Open in v0",
+    title: "v0",
     createUrl: (q: string) =>
       `https://v0.app?${new URLSearchParams({
         q,
@@ -160,7 +160,7 @@ const providers = {
     ),
   },
   cursor: {
-    title: "Open in Cursor",
+    title: "Cursor",
     createUrl: (text: string) => {
       const url = new URL("https://cursor.com/link/prompt");
       url.searchParams.set("text", text);
@@ -206,7 +206,7 @@ export type OpenInContentProps = ComponentProps<typeof DropdownMenuContent>;
 
 export const OpenInContent = ({ className, ...props }: OpenInContentProps) => (
   <DropdownMenuContent
-    align="start"
+    align="end"
     className={cn("w-60", className)}
     {...props}
   />
