@@ -15,6 +15,15 @@ This is the personal portfolio of Dhruvish, built with Next.js and TypeScript.
 First, install the dependencies:
 
 ```bash
+
+git clone https://github.com/thedhruvish/dhruvish-in.git
+cd dhruvish-in
+
+cp env.example .env
+
+```
+
+```bash
 bun install
 ```
 
@@ -62,7 +71,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── contact-us
 │   │   │   └── page.tsx
 │   │   └── page.tsx
-│   ├── coder
+│   ├── coder  [development]
 │   │   ├── page.tsx
 │   │   └── style.css
 │   ├── apple-icon.png
@@ -83,87 +92,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 │   │   ├── LikeButton.tsx
 │   │   └── ShareButton.tsx
 │   ├── svgs
-│   │   ├── devices
+│   │   ├── [SvgIcon].tsx
 │   │   │   ├── Headphones.tsx
-│   │   │   ├── Keyboard.tsx
-│   │   │   ├── Laptop.tsx
-│   │   │   ├── Monitor.tsx
-│   │   │   ├── Mouse.tsx
-│   │   │   └── Phone.tsx
-│   │   ├── technologies
-│   │   │   ├── Appwrite.tsx
-│   │   │   ├── AWS.tsx
-│   │   │   ├── BootStrap.tsx
-│   │   │   ├── Bun.tsx
-│   │   │   ├── CSS.tsx
-│   │   │   ├── ExpoApp.tsx
-│   │   │   ├── ExpressJs.tsx
-│   │   │   ├── Figma.tsx
-│   │   │   ├── Github.tsx
-│   │   │   ├── Html.tsx
-│   │   │   ├── JavaScript.tsx
-│   │   │   ├── MDXIcon.tsx
-│   │   │   ├── MongoDB.tsx
-│   │   │   ├── Motion.tsx
-│   │   │   ├── NestJs.tsx
-│   │   │   ├── Netlify.tsx
-│   │   │   ├── NextJs.tsx
-│   │   │   ├── NodeJs.tsx
-│   │   │   ├── PostgreSQL.tsx
-│   │   │   ├── Postman.tsx
-│   │   │   ├── Prisma.tsx
-│   │   │   ├── ReactIcon.tsx
-│   │   │   ├── Sanity.tsx
-│   │   │   ├── Shadcn.tsx
-│   │   │   ├── SocketIo.tsx
-│   │   │   ├── TailwindCss.tsx
-│   │   │   ├── ThreeJs.tsx
-│   │   │   ├── TypeScript.tsx
-│   │   │   └── Vercel.tsx
-│   │   ├── ArrowLeft.tsx
-│   │   ├── ArrowRight.tsx
-│   │   ├── ArrowUpRight.tsx
-│   │   ├── ArrowUUpRight.tsx
-│   │   ├── Calender.tsx
-│   │   ├── Chat.tsx
-│   │   ├── ChatBubbleIcon.tsx
-│   │   ├── CheckCircle.tsx
-│   │   ├── Code.tsx
-│   │   ├── Copied.tsx
-│   │   ├── Copy.tsx
-│   │   ├── CV.tsx
-│   │   ├── Gear.tsx
-│   │   ├── Github.tsx
-│   │   ├── LinkedIn.tsx
-│   │   ├── Mail.tsx
-│   │   ├── Moon.tsx
-│   │   ├── PlayCircle.tsx
-│   │   ├── SendIcon.tsx
-│   │   ├── Sun.tsx
-│   │   ├── Website.tsx
-│   │   ├── Whatsapp.tsx
-│   │   └── X.tsx
 │   ├── ui
-│   │   ├── accordion.tsx
-│   │   ├── alert.tsx
-│   │   ├── badge.tsx
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── command.tsx
-│   │   ├── dialog.tsx
-│   │   ├── drawer.tsx
-│   │   ├── dropdown-menu.tsx
-│   │   ├── form.tsx
-│   │   ├── input.tsx
-│   │   ├── kbd.tsx
-│   │   ├── label.tsx
-│   │   ├── scroll-area.tsx
-│   │   ├── separator.tsx
-│   │   ├── skeleton.tsx
-│   │   ├── sonner.tsx
-│   │   ├── tabs.tsx
-│   │   ├── textarea.tsx
-│   │   └── tooltip.tsx
+│   │   ├── shadcn ui
 │   ├── ClientMotion.tsx
 │   ├── command-menu.tsx
 │   ├── ContactPage.tsx

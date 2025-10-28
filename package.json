@@ -1,8 +1,31 @@
 {
-  "name": "dhruvins-in",
+  "name": "dhruvish-in",
   "version": "0.1.0",
+  "description": "Personal website for Dhruvish Lathiya",
   "private": true,
   "type": "module",
+  "license": "MIT",
+  "author": {
+    "email": "info@dhruvish.in",
+    "name": "Dhruvish Lathiya",
+    "url": "https://dhruvish.in"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/thedhruvish/dhruvish-in"
+  },
+  "keywords": [
+    "Dhruvish",
+    "Dhruvish Lathiya",
+    "dhruvish in",
+    "personal website",
+    "Nextjs",
+    "Reactjs",
+    "Typescript",
+    "tailwind",
+    "thedhruvish",
+    "dhruvishlathiya"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "tsc &&  node dist/scripts/generate-rss.js && node dist/scripts/generate-sitemap.js && next build && rm -rf dist",
