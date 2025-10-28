@@ -1,5 +1,4 @@
 import Container from "@/components/Container";
-import { Footer } from "@/components/Footer";
 import Github from "@/components/Github";
 import { HeroSection } from "@/components/Hero-section";
 import { Projects } from "@/components/Projects";
@@ -14,7 +13,6 @@ export default function Home() {
         <RecentPosts />
         <Projects />
         <Github />
-        <Footer />
       </Container>
       <Taskbar />
     </>
