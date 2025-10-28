@@ -1,7 +1,7 @@
 "use client";
 
 import { CONFIG } from "@/config/config";
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 
 import Container from "./Container";
 import { ThemeToggleButton } from "./ThemeSwitch";

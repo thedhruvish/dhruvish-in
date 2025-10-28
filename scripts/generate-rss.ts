@@ -3,7 +3,7 @@ import { getAllBlogPosts } from "../lib/blog.js";
 import fs from "fs";
 import path from "path";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://dhruvish.in";
 
 function escapeXml(str: string) {
   return str
@@ -44,7 +44,7 @@ export function generateRss() {
           ?.map((tag) => `<category>${escapeXml(tag)}</category>`)
           .join("\n      ") || ""
       }
-    </item>`,
+    </item>`
       )
       .join("")}
   </channel>

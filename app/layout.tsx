@@ -1,5 +1,5 @@
 import { generateMetadata } from "@/config/Meta";
-import { ViewTransitions } from "next-view-transitions";
+import { ViewTransitions } from "next-view-transitions-react-19";
 
 export const metadata = generateMetadata("/");
 import "./globals.css";

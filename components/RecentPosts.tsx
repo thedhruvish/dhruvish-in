@@ -1,6 +1,6 @@
 import { CalendarDays, ArrowRight } from "lucide-react";
 
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 import { MotionLi } from "./ClientMotion";
 import { getPublishedBlogPosts } from "@/lib/blog";
 const formatterDE = new Intl.DateTimeFormat("de-DE", {

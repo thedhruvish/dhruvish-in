@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import { FileSearch } from "lucide-react";
 import { Metadata } from "next";
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 
 export const metadata: Metadata = {
   title: "Blog Not Found",

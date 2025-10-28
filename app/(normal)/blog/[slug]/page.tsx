@@ -12,7 +12,7 @@ import {
   getRelatedPosts,
 } from "@/lib/blog";
 import { Metadata } from "next";
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 import { notFound } from "next/navigation";
 import {
   OpenIn,

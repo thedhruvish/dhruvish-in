@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 import { MotionDiv, MotionH1, MotionP } from "./ClientMotion";
 import { CONFIG } from "@/config/config";
 

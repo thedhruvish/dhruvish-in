@@ -1,5 +1,5 @@
 import { CONFIG } from "@/config/config";
-import { Link } from "next-view-transitions";
+import { Link } from "next-view-transitions-react-19";
 import Github from "./svgs/Github";
 import Mail from "./svgs/Mail";
 import LinkedIn from "./svgs/LinkedIn";
