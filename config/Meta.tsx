@@ -14,7 +14,7 @@ export const siteConfig = {
   title: CONFIG.title,
   description: CONFIG.description,
   url: process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000",
-  ogImage: "/meta/opengraph-image.png",
+  ogImage: "/meta/opengraph-image.jpg",
   author: {
     name: CONFIG.name,
     twitter: CONFIG.SOCIAL_MEDIA.x,
@@ -45,7 +45,7 @@ export const pageMetadata: Record<string, PageMeta> = {
       "web development",
       "projects",
     ],
-    ogImage: "/meta/hero.png",
+    ogImage: "/meta/opengraph-image.jpg",
     twitterCard: "summary_large_image",
   },
 

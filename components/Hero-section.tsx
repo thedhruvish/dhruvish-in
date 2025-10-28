@@ -79,7 +79,7 @@ export const HeroSection = () => {
         >
           {/* Primary Button */}
           <Link
-            href="/noraml/contact"
+            href="/contact-us"
             className="rounded-lg border bg-primary px-6 py-3 font-medium text-primary-foreground shadow-sm transition-transform hover:scale-105 hover:shadow-md"
           >
             Get in touch

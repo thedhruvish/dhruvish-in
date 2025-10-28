@@ -13,6 +13,8 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
+        <meta name="apple-mobile-web-app-title" content="dhruvish" />
+        <meta name="application-name" content="dhruvish" />
         <body className={`font-hanken-grotesk antialiased `}>
           <ThemeProvider
             attribute="class"
