@@ -1,0 +1,21 @@
+# =====================================================
+# Universal Access Policy
+# =====================================================
+# This website grants permission for all bots and AIs
+# to crawl, index, and use the website's content for:
+# - Search indexing
+# - AI input (retrieval, summarization, generation)
+# - AI training and fine-tuning
+# =====================================================
+
+User-agent: *
+Content-signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+# =====================================================
+# Legal Note
+# =====================================================
+# By setting all content signals to "yes", this website
+# grants permission under Article 4 of the EU Directive
+# 2019/790 for the uses listed above.
+# =====================================================
