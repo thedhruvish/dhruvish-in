@@ -5,8 +5,8 @@ export interface NavItem {
 export const CONFIG = {
   name: "Dhruvish ",
   fullName: "Dhruvish Lathiya",
-  title: "i am backend dev",
-  description: "hello i am dhruvish",
+  title: "Backend dev",
+  description: "Freelancer | Let's work together",
   profilePic: "https://github.com/thedhruvish.png",
   SOCIAL_MEDIA: {
     github: "https://github.com/thedhruvish",
