@@ -54,7 +54,7 @@ export function LikeButton({ slug }: LikeButtonProps) {
 
     debounceTimer.current = setTimeout(() => {
       sendBatchedLikes();
-    }, 2000);
+    }, 1500);
   };
 
   return (
